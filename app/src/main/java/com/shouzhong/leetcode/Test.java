@@ -1,78 +1,55 @@
 package com.shouzhong.leetcode;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class Test {
-    public String intToRoman(int num) {
-        if (num == 0) return "";
-        int count = num / 1000;
-        if (count > 0) {
-            StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < count; i++) {
-                sb.append('M');
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> list = new ArrayList<>();
+        int len = nums.length;
+        if (len < 4) return list;
+        Arrays.sort(nums);
+        if (nums[len - 1] + nums[len - 2] + nums[len - 3] + nums[len - 4] < target) {
+            return list;
+        }
+        for (int i = 0; i < len - 3; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            int min = nums[i] + nums[i + 1] + nums[i + 2] + nums[i + 3];
+            if (target < min) break;
+            int max = nums[i] + nums[len - 1] + nums[len - 2] + nums[len - 3];
+            if (target > max) continue;
+            for (int j = i + 1; j < len - 2; j++) {
+                if (j > i + 1 && nums[j] == nums[j - 1]) continue;
+                int left = j + 1;
+                int right = len - 1;
+                min = nums[i] + nums[j] + nums[left] + nums[left + 1];
+                if (target < min) break;
+                max = nums[i] + nums[j] + nums[right] + nums[right - 1];
+                if (target > max) continue;
+                while (left < right) {
+                    int temp = nums[i] + nums[j] + nums[left] + nums[right];
+                    if (temp == target) {
+                        list.add(Arrays.asList(nums[i], nums[j], nums[left], nums[right]));
+                        left++;
+                        while (left < right && nums[left] == nums[left - 1]) left++;
+                        right--;
+                        while (left < right && nums[right] == nums[right + 1]) right--;
+                    } else if (temp > target) {
+                        right--;
+                        while (left < right && nums[right] == nums[right + 1]) right--;
+                    } else {
+                        left++;
+                        while (left < right && nums[left] == nums[left - 1]) left++;
+                    }
+                }
             }
-            return sb.toString() + intToRoman(num % 1000);
         }
-        count = num / 900;
-        if (count > 0) {
-            return "CM" + intToRoman(num % 900);
-        }
-        count = num / 500;
-        if (count > 0) {
-            return "D" + intToRoman(num % 500);
-        }
-        count = num / 400;
-        if (count > 0) {
-            return "CD" + intToRoman(num % 400);
-        }
-        count = num / 100;
-        if (count > 0) {
-            StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < count; i++) {
-                sb.append('C');
-            }
-            return sb.toString() + intToRoman(num % 100);
-        }
-        count = num / 90;
-        if (count > 0) {
-            return "XC" + intToRoman(num % 90);
-        }
-        count = num / 50;
-        if (count > 0) {
-            return "L" + intToRoman(num % 50);
-        }
-        count = num / 40;
-        if (count > 0) {
-            return "XL" + intToRoman(num % 40);
-        }
-        count = num / 10;
-        if (count > 0) {
-            StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < count; i++) {
-                sb.append('X');
-            }
-            return sb.toString() + intToRoman(num % 10);
-        }
-        count = num / 9;
-        if (count > 0) {
-            return "IX" + intToRoman(num % 9);
-        }
-        count = num / 5;
-        if (count > 0) {
-            return "V" + intToRoman(num % 5);
-        }
-        count = num / 4;
-        if (count > 0) {
-            return "IV" + intToRoman(num % 4);
-        }
-        count = num;
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < count; i++) {
-            sb.append('I');
-        }
-        return sb.toString();
+        return list;
     }
 }

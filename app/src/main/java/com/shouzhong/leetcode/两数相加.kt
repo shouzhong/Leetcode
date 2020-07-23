@@ -19,7 +19,3 @@ fun addTwoNumbers(l1: ListNode?, l2: ListNode?, i: Int): ListNode? {
     )
     return ln
 }
-
-class ListNode internal constructor(var `val`: Int) {
-    var next: ListNode? = null
-}

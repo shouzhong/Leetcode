@@ -11,16 +11,24 @@ import java.util.Set;
 import java.util.Stack;
 
 public class Test {
-    public int removeDuplicates(int[] nums) {
-        int len = nums.length;
-        if (len == 0) return 0;
-        int num = nums[0];
-        int out = 1;
+    public String countAndSay(int n) {
+        if (n < 1) return "";
+        if (n == 1) return "1";
+        String s = countAndSay(n - 1);
+        StringBuilder sb = new StringBuilder();
+        int len = s.length();
+        char c = s.charAt(0);
+        int count = 1;
         for (int i = 1; i < len; i++) {
-            if (nums[i] == num) continue;
-            num = nums[i];
-            nums[out++] = num;
+            char temp = s.charAt(i);
+            if (temp == c) count++;
+            else {
+                sb.append(count).append(c);
+                c = temp;
+                count = 1;
+            }
         }
-        return out;
+        sb.append(count).append(c);
+        return sb.toString();
     }
 }

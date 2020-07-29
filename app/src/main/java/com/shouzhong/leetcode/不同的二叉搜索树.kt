@@ -25,20 +25,3 @@ fun generateTrees(start: Int, end: Int): List<TreeNode?> {
     }
     return allTrees
 }
-
-class TreeNode {
-    var `val` = 0
-    var left: TreeNode? = null
-    var right: TreeNode? = null
-
-    internal constructor() {}
-    internal constructor(`val`: Int) {
-        this.`val` = `val`
-    }
-
-    internal constructor(`val`: Int, left: TreeNode?, right: TreeNode?) {
-        this.`val` = `val`
-        this.left = left
-        this.right = right
-    }
-}

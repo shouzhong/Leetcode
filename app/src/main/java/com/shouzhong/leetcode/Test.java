@@ -15,17 +15,20 @@ import java.util.Stack;
 import java.util.stream.Collectors;
 
 public class Test {
-    public int maxProfit(int[] prices) {
-        int result = 0;
-        int min = Integer.MAX_VALUE;
-        int len = prices.length;
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int len = gas.length;
+        int current = 0;
+        int total = 0;
+        int index = 0;
         for (int i = 0; i < len; i++) {
-            if (prices[i] < min) {
-                min = prices[i];
-            } else  {
-                result = Math.max(result, prices[i] - min);
+            int temp = gas[i] - cost[i];
+            total += temp;
+            current += temp;
+            if (current < 0) {
+                index = i + 1;
+                current = 0;
             }
         }
-        return result;
+        return total >= 0 ? index : -1;
     }
 }

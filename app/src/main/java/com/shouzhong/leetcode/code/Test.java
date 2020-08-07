@@ -1,25 +1,43 @@
 package com.shouzhong.leetcode.code;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Test {
-    public int rob(TreeNode root) {
-        int[] sums = robDfs(root);
-        return Math.max(sums[0], sums[1]);
-    }
-
-    public int[] robDfs(TreeNode root) {
-        if (root == null) return new int[] {0, 0};
-        int[] l = robDfs(root.left);
-        int[] r = robDfs(root.right);
-        int selected = root.val + l[1] + r[1];
-        int notSelected = Math.max(l[0], l[1]) + Math.max(r[0], r[1]);
-        return new int[] {selected, notSelected};
-    }
-
-    public enum A {
-        INSTANCE;
-
-        public void a() {
-
+    public List<List<Integer>> palindromePairs(String[] words) {
+        List<List<Integer>> lists = new ArrayList<>();
+        Map<String, Integer> map = new HashMap<>();
+        int len = words.length;
+        for (int i = 0; i < len; i++) {
+            map.put(new StringBuilder(words[i]).reverse().toString(), i);
         }
+        for (int i = 0; i < len; i++) {
+            String word = words[i];
+            int n = word.length();
+            if (n == 0) continue;
+            for (int j = 0; j <= n; j++) {
+                if (palindromePairs(word, j, n - 1)) {
+                    Integer leftIndex = map.get(word.substring(0, j));
+                    if (leftIndex != null && leftIndex != i) lists.add(Arrays.asList(i, leftIndex));
+                }
+                if (j != 0 && palindromePairs(word, 0, j - 1)) {
+                    Integer rightIndex = map.get(word.substring(j, n));
+                    if (rightIndex != null && rightIndex != i) lists.add(Arrays.asList(rightIndex, i));
+                }
+            }
+        }
+        return lists;
+    }
+
+    public boolean palindromePairs(String s, int left, int right) {
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right)) return false;
+            left++;
+            right--;
+        }
+        return true;
     }
 }

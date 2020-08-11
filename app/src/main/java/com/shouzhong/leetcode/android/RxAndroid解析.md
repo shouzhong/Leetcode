@@ -1,0 +1,5 @@
+# RxAndroid
+
+其实就是rxjava，rxandroid只是对在android平台上的一些扩展，所以这里主要分析rxjava
+
+首先我们先要了解下观察者模式

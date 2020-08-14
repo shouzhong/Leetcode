@@ -47,4 +47,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
     implementation project(":jni")
     implementation project(":tensor")
+    implementation project(":binder")
+    annotationProcessor project(':compiler')
 }

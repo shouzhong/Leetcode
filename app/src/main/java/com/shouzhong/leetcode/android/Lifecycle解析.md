@@ -1,0 +1,14 @@
+# Lifecycle
+
+首先这个的作用是为了监测activity或者fragment生命周期，生命周期设计的初衷是很好的，但是随着业务的不断扩大和复杂，然后
+就要拆分业务、解除耦合，但是随之带来的问题是某些依赖生命周期的操作将变得很不方便，我们在早期一些有些的框架上面可以看到
+用fragment去监听这个生命周期，虽然有一定的统计取巧，但在当时看来是很惊艳的，后来者纷纷模仿，直到今天还有用的，但是和
+Lifecycle比起来还是差点，虽然Lifecycle实现起来也很简单，其实Lifecycle这个思路很多人都会想到，但是为什么没看到一个
+成熟的框架，问题还是耦合性，因为我们要继承Activity（或者其他其子类官方的Activity），然后把这个思路在这个类中实现，问题
+就出在又生成了一个类，我们写项目的时候，基类又要集成这个类，如果有个其他功能也是用继承的方式实现，那么该如何，所以java的
+单继承性表明了这个不是个好的方案。那么为什么google实现了就是好的方案，因为是源码，没错，理由就是这么简单。
+
+主要的涉及的就是LifecycleOwner、Lifecycle和LifecycleObserver，LifecycleOwner就是生命周期拥有者，这里显然就是
+activity或者fragment，LifecycleObserver是观察者，那Lifecycle呢，是协调这两个的，也就是生命周期发生变化时先告诉
+Lifecycle，然后Lifecycle再告诉LifecycleObserver，实现下来很简单的，对比下rxjava的观察者模式，我们发现很相似，其
+实思路是差不多的

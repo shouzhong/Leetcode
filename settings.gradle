@@ -1,2 +1,7 @@
+include ':binder'
+include ':compiler'
+include ':annotation'
+include ':tensor'
+include ':jni'
 include ':app'
 rootProject.name = "Leetcode"

@@ -48,7 +48,7 @@
 学习过但很少用：Python、JavaScript、Objective-C、Swift
 
 ### 框架
-EventBus、Retrofit、RxAndroid、Glide、DataBinding、Lifecycle、LiveData、ViewModel
+DataBinding、Lifecycle、LiveData、ViewModel、EventBus、Retrofit、RxAndroid、Glide
 
 ## 教育经历
 2011 - 2015 山东大学 微电子科学与工程 本科
